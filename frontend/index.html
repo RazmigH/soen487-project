@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Roadtrip Planner</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="app.css">
+  </head>
+  
+  <body>
+    <div class="container">
+      <div class="row" id="header-row">
+        <div class="col" id="header-col">
+	  <h1 class="text-center">Roadtrip Planner</h1>
+	</div>
+      </div>
+
+      <div class="row align-items-center justify-content-center" id="input-row">
+	<div class="col-xs-12 col-md-6" id="input-col">
+	  <div class="input-group">
+	    <span class="input-group-addon" id="departure-txt">Departure</span>
+	    <input type="text" class="form-control" placeholder="Leaving from..." aria-describedby="departure-txt">
+          </div>
+	  <br>
+	  <div class="input-group">
+	    <span class="input-group-addon" id="destination-txt">Destination</span>
+	    <input type="text" class="form-control" placeholder="Going to..." aria-describedby="destination-txt">
+          </div>
+        </div>
+	<div class="col-xs-12 col-md-4 offset-md-1" id="submit-col">
+	  <button type="button" onclick="fetchTripInfo()" class="btn btn-primary btn-lg btn-block" id="go-btn">Go!</button>
+	</div>
+      </div>
+
+      <div class="row" id="map-row">
+	<div class="col-xs-12 col-md-6" id="directions-col">
+	  DIRECTIONS GO HERE
+	</div>
+	<div class="col-xs-12 col-md-6" id="map-col">
+	  MAP GOES HERE
+	</div>
+      </div>
+
+      <!--<div class="row" id="other-content-row-1">-->
+	<!--<div class="col-xs-12 col-md-6" id="weather-col">-->
+	  <!--WEATHER GOES HERE-->
+	<!--</div>-->
+	<!--<div class="col-xs-12 col-md-6" id="restaurants-col">-->
+	  <!--RESTAURANTS GO HERE-->
+	<!--</div>-->
+	<!--<div class="col-xs-12 col-md-6" id="gas-stations-col">-->
+	  <!--GAS STATIONS GO HERE-->
+	<!--</div>-->
+
+      </div>
+    </div>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. --> 
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
