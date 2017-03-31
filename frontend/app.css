@@ -2,33 +2,46 @@
 	margin-top: 40px;
 	margin-bottom: 40px;
 }
+
 #input-col {
 	text-align: center;
 }
+
 #go-btn {
 	min-width: 150px;
 }
+
 #submit-col {
     margin-top: 30px;
 }
+
 .row {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+
 #map-col {
     height: 500px;
 }
 
+#directions-col {
+    margin-top: 30px;
+}
+
+
 @media(min-width: 768px) {
     #submit-col {
-	margin-top: 0px;
+	    margin-top: 0px;
+    }
+
+    #directions-col {
+        height: 500px;
+        overflow: scroll;
+        margin-top: 0px;
     }
 }
 
 
-
-/* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
 #map {
 	height: 100%;
 }

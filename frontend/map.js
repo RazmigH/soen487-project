@@ -14,6 +14,7 @@ function initialize() {
     }
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
     directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(document.getElementById('directions'));
 }
 
 function calcRoute(start, end) {
