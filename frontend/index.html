@@ -37,6 +37,16 @@
             <div class="row" id="map-row">
                 <div class="col-xs-12 col-md-6" id="map-col">
                     <div id="map"></div>
+                    <div id="start-infowindow-content">
+                        <img src="" width="16" height="16" id="start-place-icon">
+                        <span id="start-place-name"  class="title"></span><br>
+                        <span id="start-place-address"></span>
+                    </div>
+                    <div id="end-infowindow-content">
+                        <img src="" width="16" height="16" id="end-place-icon">
+                        <span id="end-place-name"  class="title"></span><br>
+                        <span id="end-place-address"></span>
+                    </div>
                 </div>
                 <div class="col-xs-12 col-md-6" id="directions-col">
 	                <div id="directions"></div>
@@ -62,7 +72,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNrZAoJ8_xVKR7y7jHYPkX_P098AsZf3c&callback=initialize" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNrZAoJ8_xVKR7y7jHYPkX_P098AsZf3c&libraries=places&callback=initialize" async defer></script>
     <script src="app.js"></script>
   </body>
 </html>
