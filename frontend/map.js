@@ -72,6 +72,7 @@ function initAutocomplete(map, input, marker, infoWindow, se) {
             ].join(' ');
         }
 
+        infoWindowContent.hidden = false;
         if (se === 'start') {
             infoWindowContent.children['start-place-icon'].src = place.icon;
             infoWindowContent.children['start-place-name'].textContent = place.name;

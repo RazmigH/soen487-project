@@ -1,6 +1,20 @@
 #input-row {
-	margin-top: 40px;
 	margin-bottom: 40px;
+}
+
+.navbar {
+    min-height:100px;
+}
+
+.navbar-brand {
+    position: absolute;
+    width: 100%;
+    min-height: 150px;
+    /*height: 100%;*/
+    /*margin-top: auto;*/
+    /*margin-bottom: auto;*/
+    text-align: center;
+    font-size: 2em;
 }
 
 #input-col {
@@ -8,7 +22,7 @@
 }
 
 #go-btn {
-	min-width: 150px;
+	min-width: 100%;
 }
 
 #submit-col {
@@ -24,12 +38,16 @@
     height: 500px;
 }
 
+#directions {
+    margin-top: -10px;
+}
+
 #directions-col {
     margin-top: 30px;
 }
 
 
-@media(min-width: 768px) {
+@media(min-width: 992px) {
     #submit-col {
 	    margin-top: 0px;
     }
@@ -50,4 +68,12 @@ html, body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
+}
+
+.address, .title {
+    color: black;
+}
+
+.adp {
+    background-color: white;
 }
