@@ -24,7 +24,11 @@ repositories {
 
 
 dependencies {
-        compile("org.springframework.boot:spring-boot-starter-web")
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+        compile 'org.springframework.boot:spring-boot-starter-web'
+	testCompile 'org.springframework.boot:spring-boot-starter-test'
+
+		compile 'tk.plogitech:darksky-forecast-api:0.10'
+		compile 'tk.plogitech:darksky-forecast-api-jackson:0.10'
+        compile 'org.aeonbits.owner:owner:1.0.9'
 }
 
