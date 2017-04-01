@@ -3,6 +3,7 @@ package com.soen487.project.backend.controllers;
 import com.soen487.project.backend.ServicesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tk.plogitech.darksky.api.jackson.DarkSkyJacksonClient;
 import tk.plogitech.darksky.forecast.*;
@@ -24,7 +25,7 @@ public class WeatherReportController {
     }
 
     @RequestMapping(value = "/weather", method = GET)
-    public Forecast getWeatherNear(Double longitude, Double latitude) {
+    public Forecast getWeatherNear(@RequestParam Double longitude, @RequestParam Double latitude) {
         ForecastRequest request = new ForecastRequestBuilder()
                 .key(new APIKey(servicesConfig.darkskyApiKey()))
                 .exclude(ForecastRequestBuilder.Block.minutely)

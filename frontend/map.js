@@ -9,6 +9,8 @@ var endMarker;
 var startInfoWindow;
 var endInfoWindow;
 
+var destPlace;
+
 function initialize() {
     directionsDisplay = new google.maps.DirectionsRenderer();
     var chicago = new google.maps.LatLng(41.850033, -87.6500523);
@@ -46,6 +48,11 @@ function initAutocomplete(map, input, marker, infoWindow, se) {
         infoWindow.close();
         marker.setVisible(false);
         var place = autocomplete.getPlace();
+
+        if (se === 'end') {
+            destPlace = place
+        }
+
         if (!place.geometry) {
             // User entered the name of a Place that was not suggested and
             // pressed the Enter key, or the Place Details request failed.
@@ -100,6 +107,6 @@ function calcRoute(start, end) {
         }
     });
 
-    startMarker.setVisible(false);
-    endMarker.setVisible(false);
+    if (startMarker) startMarker.setVisible(false);
+    if (endMarker) endMarker.setVisible(false);
 }
