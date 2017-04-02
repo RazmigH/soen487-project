@@ -19,8 +19,8 @@ function fetchTripInfo() {
     var destination = document.getElementById('destination-text').value
 
     console.log('Fetching trip info')
-    //fetchDirections(departure, destination)
-    //fetchWeather(departure, destination)
+    fetchDirections(departure, destination)
+    fetchWeather(departure, destination)
     fetchHospitalRoutine(destination)
     // /fetchRestaurants(departure, arrival)
     //fetchGasStations(departure, arrival)
@@ -165,11 +165,10 @@ function fetchCoordinates(place){
 
 function fetchHospitalRoutine(destination){
     /*
-     * fetchHospital runs before fetchCoordinate can finish, this timeout
+     * fetchHospital runs before fetchCoordinate can finish, thus timeout
      */
     var loc = fetchCoordinates(destination);
-    setTimeout(function(){console.log(loc);}, 5000);
-    console.log(loc);
+
     //wrap the function as else if you call a function with parameters, it runs immediately
     setTimeout(fetchHospitals.bind(null, loc), 5000);
 }
