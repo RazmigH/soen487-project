@@ -67,7 +67,7 @@ public class RestaurantController {
             e.printStackTrace();
         }
 
-        System.out.println(returnedList.toString());
+        //System.out.println(returnedList.toString());
         return returnedList.toString();
     }
 }
