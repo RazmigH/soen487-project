@@ -20,11 +20,13 @@ function fetchTripInfo() {
 
     console.log('Fetching trip info')
     //fetchDirections(departure, destination)
-    fetchWeather(departure, destination)
-    //fetchHospitals(destination)
-    //fetchCoordinates(destination)
+    //fetchWeather(departure, destination)
+    fetchHospitalRoutine(destination)
     // /fetchRestaurants(departure, arrival)
     //fetchGasStations(departure, arrival)
+
+    //Testing Purposes
+    //fetchCoordinates(destination)
 
 }
 
@@ -116,40 +118,56 @@ function addWeatherDay(dayData) {
     weatherRow.innerHTML += str
 
 }
-function fetchHospitals(destination) {
-    //var loc = destination.geometry.location
-    console.log(destination);
-    var url = backend_base_url + '/emergency'
-
-    $.getJSON(url, {
-        longitude:-79.00248100000002,
-        latitude:43.8554579
-    },function (data){
-        $.each(data, function(key,value){
-            if(key=='listings'){
-                $.each(value, function(k, v){
-                    console.log(v.name + ',' + v.address.city + ',' + v.distance + ',');
-                    $('#emergency-col').append('<li>'+ v.name + '<br> Address: ' + v.address.street + ', '
-                        + v.address.city + ', ' + v.address.pcode + v.address.prov + '<br> Distance from Destination: '
-                        + v.distance + '</li>');
-                });
-            }
-        })
-    });
+function fetchHospitals(loc) {
+        //var loc = fetchCoordinates(Destination);
+        var url = backend_base_url + '/emergency'
+        console.log('Fetching Hospitals');
+        console.log(loc);
+        $.getJSON(url, {
+            longitude: loc.lng,
+            latitude: loc.lat
+        },function (data){
+            $.each(data, function(key,value){
+                if(key=='listings'){
+                    $.each(value, function(k, v){
+                        console.log(v.name + ',' + v.address.city + ',' + v.distance + ',');
+                        $('#emergency-col').append('<li>'+ v.name + '<br> Address: ' + v.address.street + ', '
+                            + v.address.city + ', ' + v.address.pcode + v.address.prov + '<br> Distance from Destination: '
+                            + v.distance + '</li>');
+                    });
+                }
+            })
+        });
 }
 
 function fetchCoordinates(place){
     console.log(place);
     console.log('Fetching Coordinates');
-    var url = backend_base_url + '/geocode';
-    $.getJSON(url,{
-        address: place
-    },function(data){
-        $.each(data.results[0], function(key, value){
+    var myUrl = backend_base_url + '/geocode';
+    $.ajax({
+        url: myUrl,
+        dataType: 'json',
+        asynch: false,
+        data:{
+            address: place
+        },
+        success: function(data){
+            $.each(data.results[0], function(key, value){
             if(key=='geometry'){
                 console.log(value.location);
-                //return value.location;
+                return value.location;
             }
         })
-    });
+    }});
 }
+
+function fetchHospitalRoutine(destination){
+    /*
+     * fetchHospital runs before fetchCoordinate can finish, this timeout
+     */
+    var loc = fetchCoordinates(destination);
+
+    //wrap the function as else if you call a function with parameters, it runs immediately
+    setTimeout(function(){fetchHospitals(loc);}, 5000);
+}
+
