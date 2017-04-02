@@ -122,7 +122,7 @@ function fetchHospitals(loc) {
         //var loc = fetchCoordinates(Destination);
         var url = backend_base_url + '/emergency'
         console.log('Fetching Hospitals');
-        console.log(loc);
+        //console.log(loc);
         $.getJSON(url, {
             longitude: loc.lng,
             latitude: loc.lat
@@ -144,21 +144,23 @@ function fetchCoordinates(place){
     console.log(place);
     console.log('Fetching Coordinates');
     var myUrl = backend_base_url + '/geocode';
+    var obj;
     $.ajax({
         url: myUrl,
         dataType: 'json',
-        asynch: false,
+        async: false,
         data:{
             address: place
         },
         success: function(data){
             $.each(data.results[0], function(key, value){
             if(key=='geometry'){
-                console.log(value.location);
-                return value.location;
+                obj = value.location
             }
         })
     }});
+    console.log('TESTING fethCoordinates FUNCTION: ' + obj);
+    return obj;
 }
 
 function fetchHospitalRoutine(destination){
@@ -166,8 +168,9 @@ function fetchHospitalRoutine(destination){
      * fetchHospital runs before fetchCoordinate can finish, this timeout
      */
     var loc = fetchCoordinates(destination);
-
+    setTimeout(function(){console.log(loc);}, 5000);
+    console.log(loc);
     //wrap the function as else if you call a function with parameters, it runs immediately
-    setTimeout(function(){fetchHospitals(loc);}, 5000);
+    setTimeout(fetchHospitals.bind(null, loc), 5000);
 }
 
