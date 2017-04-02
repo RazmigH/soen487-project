@@ -103,3 +103,5 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 # End of https://www.gitignore.io/api/java,gradle,spring,intellij
+
+backend/src/main/java/com/soen487/project/backend/ServicesConfig\.java

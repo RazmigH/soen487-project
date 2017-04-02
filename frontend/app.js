@@ -19,9 +19,11 @@ function fetchTripInfo() {
     var destination = document.getElementById('destination-text').value
 
     console.log('Fetching trip info')
-    fetchDirections(departure, destination)
+    //fetchDirections(departure, destination)
     fetchWeather(departure, destination)
-    //fetchRestaurants(departure, arrival)
+    //fetchHospitals(destination)
+    //fetchCoordinates(destination)
+    // /fetchRestaurants(departure, arrival)
     //fetchGasStations(departure, arrival)
 
 }
@@ -113,4 +115,41 @@ function addWeatherDay(dayData) {
     var weatherRow = document.getElementById('weather-row');
     weatherRow.innerHTML += str
 
+}
+function fetchHospitals(destination) {
+    //var loc = destination.geometry.location
+    console.log(destination);
+    var url = backend_base_url + '/emergency'
+
+    $.getJSON(url, {
+        longitude:-79.00248100000002,
+        latitude:43.8554579
+    },function (data){
+        $.each(data, function(key,value){
+            if(key=='listings'){
+                $.each(value, function(k, v){
+                    console.log(v.name + ',' + v.address.city + ',' + v.distance + ',');
+                    $('#emergency-col').append('<li>'+ v.name + '<br> Address: ' + v.address.street + ', '
+                        + v.address.city + ', ' + v.address.pcode + v.address.prov + '<br> Distance from Destination: '
+                        + v.distance + '</li>');
+                });
+            }
+        })
+    });
+}
+
+function fetchCoordinates(place){
+    console.log(place);
+    console.log('Fetching Coordinates');
+    var url = backend_base_url + '/geocode';
+    $.getJSON(url,{
+        address: place
+    },function(data){
+        $.each(data.results[0], function(key, value){
+            if(key=='geometry'){
+                console.log(value.location);
+                //return value.location;
+            }
+        })
+    });
 }
