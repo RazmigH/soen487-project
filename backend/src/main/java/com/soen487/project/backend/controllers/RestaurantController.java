@@ -1,10 +1,10 @@
 package com.soen487.project.backend.controllers;
 
+import com.soen487.project.backend.ServicesConfig;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,8 +22,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class RestaurantController {
 
 
+    private final ServicesConfig servicesConfig;
+
     @Autowired
-    private Environment env;
+    public RestaurantController(ServicesConfig servicesConfig) {
+        this.servicesConfig = servicesConfig;
+    }
 
     /**
      * Return json string which contains top N rated restaurants
@@ -41,7 +45,8 @@ public class RestaurantController {
         vars.put("radius", "5000");
         vars.put("types","restaurant");
         vars.put("sensor","true");
-        vars.put("key",env.getProperty("googlemaps.api.key")); //get google developer api key
+        vars.put("key",servicesConfig.googleMapsApiKey()); //get google developer api key
+        //vars.put("key","xx-xx");
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject("https://maps.googleapis.com/maps/api/place/search/json?location={location}&radius={radius}&types={types}&sensor={sensor}&key={key}", String.class, vars);
         //System.out.println(result);
