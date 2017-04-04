@@ -93,7 +93,43 @@ function addWeatherDay(dayData) {
 
     var high = dayData.temperatureMax
     var low = dayData.temperatureMin
-    var icon = dayData.icon // TODO make real icon
+    var icon = dayData.icon
+    var weatherIcon;
+    switch (icon) {
+        case 'clear-day':
+            weatherIcon = 'day-sunny'
+            break
+        case 'clear-night':
+            weatherIcon = 'night-clear'
+            break
+        case 'snow':
+            weatherIcon = 'snow'
+            break
+        case 'rain':
+            weatherIcon = 'rain'
+            break
+        case 'sleet':
+            weatherIcon = 'sleet'
+            break
+        case 'wind':
+            weatherIcon = 'strong-wind'
+            break
+        case 'fog':
+            weatherIcon = 'fog'
+            break
+        case 'cloudy':
+            weatherIcon = 'cloudy'
+            break;
+        case 'partly-cloudy-day':
+            weatherIcon = 'day-cloudy'
+            break
+        case 'partly-cloudy-night':
+            weatherIcon = 'night-alt-cloudy'
+            break
+        default:
+            break
+
+    }
 
     // Messy I know
     var str = `
@@ -103,6 +139,8 @@ function addWeatherDay(dayData) {
             <h3 class="panel-title">${ dateString }</h3>
         </div>
         <div class="panel-body">
+            <i class="wi wi-fw wi-${ weatherIcon }"></i>
+            <br>
             High: ${ high }
             <br>
             Low: ${ low }
