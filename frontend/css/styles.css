@@ -1,0 +1,106 @@
+/* form */
+/* latin-ext */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Lato Regular"), local("Lato-Regular"), url(https://fonts.gstatic.com/s/lato/v13/UyBMtLsHKBKXelqf4x7VRQ.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; }
+
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Lato Regular"), local("Lato-Regular"), url(https://fonts.gstatic.com/s/lato/v13/1YwB1sO8YE1Lyjf12WNiUA.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215; }
+
+/* latin-ext */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: local("Lato Bold"), local("Lato-Bold"), url(https://fonts.gstatic.com/s/lato/v13/ObQr5XYcoH0WBoUxiaYK3_Y6323mHUZFJMgTvxaG2iE.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; }
+
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: local("Lato Bold"), local("Lato-Bold"), url(https://fonts.gstatic.com/s/lato/v13/H2DMvhDLycM56KNuAtbJYA.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215; }
+
+html, body {
+  font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: white;
+  background-color: #222;
+  height: 100%;
+  margin: 0;
+  padding: 0; }
+
+button {
+  cursor: pointer; }
+
+hr {
+  background-color: white; }
+
+.navbar {
+  background-color: #375a7f;
+  margin-bottom: 2rem; }
+  .navbar .navbar-brand {
+    text-align: center;
+    font-size: 2rem; }
+
+.input-group {
+  margin-bottom: 1rem; }
+  .input-group .input-group-addon {
+    color: white;
+    background-color: #484848; }
+  .input-group .form-control {
+    height: 45px;
+    border: none; }
+    .input-group .form-control::-webkit-input-placeholder {
+      /* WebKit, Blink, Edge */
+      color: #999; }
+    .input-group .form-control:-moz-placeholder {
+      /* Mozilla Firefox 4 to 18 */
+      color: #999; }
+    .input-group .form-control::-moz-placeholder {
+      /* Mozilla Firefox 19+ */
+      color: #999; }
+    .input-group .form-control:-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: #999; }
+
+.btn-primary {
+  background-color: #375a7f;
+  color: white;
+  border: none; }
+  .btn-primary:hover {
+    background-color: #20344a; }
+
+.btn-lg {
+  padding: 1rem 1.75rem; }
+
+#map-col {
+  height: 500px; }
+  #map-col #map {
+    height: 100%;
+    color: black; }
+
+#directions-col {
+  margin-top: 30px; }
+  #directions-col #directions {
+    margin-top: -10px; }
+
+@media (min-width: 992px) {
+  #destination-col {
+    margin-top: 0px; }
+  #directions-col {
+    height: 500px;
+    overflow: auto;
+    margin-top: 0px; } }
+
+.adp {
+  background-color: white; }
