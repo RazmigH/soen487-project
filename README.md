@@ -22,16 +22,17 @@ etc.
 To build the backend, `cd` to the `backend` directory and run `./gradlew build`. This will output a runnnable JAR to `build/libs`, which you can then run as such: `java -jar <jar-name>.jar`. This will start the backend server at `http://localhost:8080`.
 
 ### Frontend
-The frontend is a simply a collection of static HTML, CSS and JavaScript. It can be used locally or hosted with a webserver such as [Apache](https://httpd.apache.org/) or [nginx](https://www.nginx.com/).
+The frontend is a collection of static HTML, CSS and JavaScript. It can be used locally or hosted with a webserver such as [Apache](https://httpd.apache.org/) or [nginx](https://www.nginx.com/).
 
 To connect to the backend, simply specify the base url in `frontend/js/app.js` as `backend_base_url`. The default is `http://localhost:8080`.
 
-If you would like to make use of SASS and the css bundling, you will need to run the "gulp" script through npm.
-To do this, you need npm(nodejs package manager) which is included with NodeJS (https://nodejs.org/en/download/).
-Instructions: 
-	- Once you have npm, open a command prompt window and navigate to the frontend directory. 
-	- Run command "npm install". This installs all of the required packages defined in package.json
-	- Run command "gulp" or "npm run gulp" to compile and bundle css.
+If you would like to make use of SASS and the css bundling, you will need to run the "gulp" script through `npm`.
+To do this, you need npm (nodejs package manager) which is included with [NodeJS](https://nodejs.org/en/download/).
+
+ - Once you have npm, open a command prompt window and navigate to the frontend directory. 
+ - Run command `npm install`. This installs all of the required packages defined in `package.json`.
+ - Run command `gulp` or `npm run gulp` to compile and bundle the css.
+ 
 Note: This is not required, you can still make regular css files and include them in html.
 
 ## Built with
