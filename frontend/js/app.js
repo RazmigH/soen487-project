@@ -80,7 +80,7 @@ function setWeatherDest(place) {
     })
 
     var weatherDest = document.getElementById('weather-dest');
-    weatherDest.textContent = locality.short_name;
+    weatherDest.textContent = locality.long_name;
 }
 
 function addWeatherDay(dayData) {
@@ -132,18 +132,39 @@ function addWeatherDay(dayData) {
     }
 
     // Messy I know
+//     var str = `
+// <div class="col-xs-4 col-sm-3 col-md-4 col-lg-3 weather-col">
+//     <div class="panel panel-default">
+//         <div class="panel-heading">
+//             <h3 class="panel-title">${ dateString }</h3>
+//         </div>
+//         <div class="panel-body">
+//             <i class="wi wi-fw wi-${ weatherIcon }"></i>
+//             <br>
+//             High: ${ high }
+//             <br>
+//             Low: ${ low }
+//         </div>
+//     </div>
+// </div>`
+
     var str = `
-<div class="col-xs-4 col-sm-3 col-md-4 col-lg-3 weather-col">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">${ dateString }</h3>
+<div class="col-4 col-md-6 col-lg-4 col-xl-3 weather-col">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">${ dateString }</h5>
         </div>
-        <div class="panel-body">
-            <i class="wi wi-fw wi-${ weatherIcon }"></i>
-            <br>
-            High: ${ high }
-            <br>
-            Low: ${ low }
+        <div class="card-block">
+            <p class="card-text">High: ${ high }</p>
+            <p class="card-text">Low: ${ low }</p>
+        <!--</div>-->
+        <!--<div class="card-block">-->
+            <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+            <!--<i class="card-img-top wi wi-fw wi-${ weatherIcon }"></i>-->
+            <!--<ul class="list-group list-group-flush">-->
+                <!--<li class="list-group-item">High: ${ high }</li>-->
+                <!--<li class="list-group-item">Low: ${ low }</li>-->
+            <!--</ul>-->
         </div>
     </div>
 </div>`

@@ -96,3 +96,21 @@ hr{
 .adp {
     background-color: white;
 }
+
+.card-title {
+  color: white;
+}
+
+.card-text {
+  color: black;
+}
+
+.card-header {
+  background-color: $secondary-background-color;
+  text-align: center;
+}
+
+.card {
+  border: 2px solid $secondary-background-color;
+  //background-color: $secondary-background-color;
+}

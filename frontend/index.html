@@ -57,6 +57,7 @@
             <div class="row" id="other-content-row-1">
 	            <div class="col-12 col-md-6" id="weather-col" hidden>
 	                <h3>Weather in <span id="weather-dest">DESTINATION</span></h3>
+                    <a href="https://darksky.net/poweredby/"><h6 id="darksky-plug">Powered by Dark Sky</h6></a>
                     <div id="weather-div">
                         <div class="row" id="weather-row"></div>
                     </div>
@@ -71,8 +72,9 @@
         </div>
 
         <script src="js/map.js"></script>
-        <script src="js/jquery-3.2.0.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="js/lib/jquery.min.js"></script>
+        <script src="js/lib/bootstrap.min.js"></script>
+        <script src="js/lib/tether.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNrZAoJ8_xVKR7y7jHYPkX_P098AsZf3c&libraries=places&callback=initialize" async defer></script>
         <script src="js/app.js"></script>
     </body>

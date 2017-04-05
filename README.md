@@ -26,7 +26,7 @@ The frontend is a collection of static HTML, CSS and JavaScript. It can be used 
 
 To connect to the backend, simply specify the base url in `frontend/js/app.js` as `backend_base_url`. The default is `http://localhost:8080`.
 
-If you would like to make use of SASS and the css bundling, you will need to run the "gulp" script through `npm`.
+If you would like to make use of SASS and the CSS bundling, you will need to run the "gulp" script through `npm`.
 To do this, you need npm (nodejs package manager) which is included with [NodeJS](https://nodejs.org/en/download/).
 
  - Once you have npm, open a command prompt window and navigate to the frontend directory. 

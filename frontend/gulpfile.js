@@ -9,7 +9,7 @@ var sass = require('gulp-sass');
 var cleanCSS = require('gulp-clean-css');
 
 
-gulp.task('default', ['css'], function() {});
+gulp.task('default', ['css', 'js'], function() {});
 
 gulp.task('css', function(){
 	//compile sass
@@ -21,9 +21,10 @@ gulp.task('css', function(){
 	gulp.src([
 		'./node_modules/reset-css/reset.css',
 		'./node_modules/bootstrap/dist/css/bootstrap.min.css',
+		'./node_modules/tether/dist/css/tether.min.css',
 		'./node_modules/weather-icons/css/weather-icons.min.css',
-		'./css/styles.css' ])
-
+		'./css/styles.css'
+    ])
 		//bundle
 		.pipe(concat('bundle.css'))
 		//save
@@ -33,4 +34,15 @@ gulp.task('css', function(){
 		.pipe(rename({ suffix: '.min'}))
 		//save
 		.pipe(gulp.dest('./css'));
+});
+
+
+gulp.task('js', function(){
+    // copy bootstrap & jquery js
+    gulp.src([
+        './node_modules/bootstrap/dist/js/bootstrap.min.js',
+        './node_modules/tether/dist/js/tether.min.js',
+        './node_modules/jquery/dist/jquery.min.js'
+    ])
+        .pipe(gulp.dest('./js/lib'));
 });
