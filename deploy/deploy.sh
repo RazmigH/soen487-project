@@ -8,7 +8,7 @@ TOP_DIR=${DIR}/../
 pushd ${TOP_DIR}
 
 # Push backend to heroku
-git subtree push --prefix backend heroku heroku-push
+git subtree push --prefix backend heroku master
 
 popd
 
