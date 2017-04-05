@@ -28,7 +28,7 @@ function fetchTripInfo() {
         fetchDirections(departure, destination)
         fetchWeather(departure, destination)
         fetchHospitalRoutine(destination)
-    // /fetchRestaurants(departure, arrival)
+        fetchRestaurants(departure, destination)
         //fetchGasStations(departure, arrival)
 
         //Testing Purposes
@@ -47,8 +47,8 @@ function fetchDirections(departure, destination) {
 }
 
 function fetchRestaurants(departure, destination) {
-    // TODO
     console.log('Fetching restaurants')
+    makeRestaurantRequest(destPlace)
 }
 
 function fetchGasStations(departure, destination) {
@@ -77,6 +77,42 @@ function makeWeatherRequest(place) {
             addWeatherDay(d)
         })
     })
+}
+
+function makeRestaurantRequest(place) {
+    var loc = place.geometry.location
+    var url = backend_base_url + '/restaurant'
+    //console.log(place.name)
+
+    $.getJSON(url, {
+        longitude: loc.lng,
+        latitude: loc.lat,
+        topN: 3
+    }).done(function(data) {
+        displayRestaurant(data, place.name)
+    })
+}
+
+function displayRestaurant(data, city){ //eric
+    $("#restaurants-col").val("") //clear its contents
+    var input = $("#restaurants-col");
+    input.append("<div class='container'><h2>Restaurant Reco.</h2> <p>Best rated restaurants in "+city+"</p>")
+    input.append("<table class='table table-hover'>")
+
+    $.each(data, function(index) {
+        //console.log(data[index])
+        input.append("<thead><tr><th>"+data[index].name+"</th>")
+        input.append("<th>Rating "+data[index].rating+"</th>")
+        input.append("</tr></thead>")
+        var openClosed
+        if(data[index].opening_hours.open_now)
+            openClosed = "Open"
+        else
+            openClosed = "Closed"
+        input.append("<tbody><tr><td>Address "+data[index].vicinity+"</td><td></td></tr><tr><td>"+openClosed+"</td><td> </td></tr></tbody>")
+
+    })
+    input.append("</table></div>")
 }
 
 function setWeatherDest(place) {
