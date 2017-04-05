@@ -13,30 +13,36 @@ var monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ]
 
+$('#destination-text').keypress(function(event) {
+    if (event.keyCode == 13) {  // enter key pressed
+        fetchTripInfo();
+    }
+})
 
 function fetchTripInfo() {
-    var departure = document.getElementById('departure-text').value
-    var destination = document.getElementById('destination-text').value
-
-    console.log('Fetching trip info')
-    fetchDirections(departure, destination)
-    fetchWeather(departure, destination)
-    fetchHospitalRoutine(destination)
+    if (departure && destination) {
+        var departure = document.getElementById('departure-text').value
+        var destination = document.getElementById('destination-text').value
+    
+        console.log('Fetching trip info')
+        fetchDirections(departure, destination)
+        fetchWeather(departure, destination)
+        fetchHospitalRoutine(destination)
     // /fetchRestaurants(departure, arrival)
-    //fetchGasStations(departure, arrival)
+        //fetchGasStations(departure, arrival)
 
-    //Testing Purposes
-    //fetchCoordinates(destination)
-
+        //Testing Purposes
+        //fetchCoordinates(destination)
+    } else {
+        // TODO better error message
+        alert('must specify both departure and arrival!')
+    }
 }
 
 function fetchDirections(departure, destination) {
     console.log('Fetching directions')
     if (departure && destination) {
         calcRoute(departure, destination)
-    } else {
-        // TODO better
-        alert('must specify both departure and arrival!')
     }
 }
 
@@ -55,9 +61,7 @@ function fetchWeather(departure, destination) {
     console.log('Fetching weather')
     makeWeatherRequest(destPlace)
     setWeatherDest(destPlace)
-
     document.getElementById('weather-col').hidden = false
-
 }
 
 
@@ -72,7 +76,6 @@ function makeWeatherRequest(place) {
         data.daily.data.forEach(function(d) {
             addWeatherDay(d)
         })
-
     })
 }
 
@@ -83,22 +86,22 @@ function setWeatherDest(place) {
             }) !== undefined
     })
 
-    var weatherDest = document.getElementById('weather-dest');
-    weatherDest.textContent = locality.long_name;
+    var weatherDest = document.getElementById('weather-dest')
+    weatherDest.textContent = locality.long_name
 }
 
 function addWeatherDay(dayData) {
     console.log(dayData)
 
-    var dt = new Date(dayData.time * 1000);
+    var dt = new Date(dayData.time * 1000)
 
-    var options = { weekday: 'long', month: 'long', day: 'numeric' };
+    var options = { weekday: 'long', month: 'long', day: 'numeric' }
     var dateString = dt.toLocaleDateString('en-US', options)
 
     var high = dayData.temperatureMax
     var low = dayData.temperatureMin
     var icon = dayData.icon
-    var weatherIcon;
+    var weatherIcon
     switch (icon) {
         case 'clear-day':
             weatherIcon = 'day-sunny'
@@ -123,7 +126,7 @@ function addWeatherDay(dayData) {
             break
         case 'cloudy':
             weatherIcon = 'cloudy'
-            break;
+            break
         case 'partly-cloudy-day':
             weatherIcon = 'day-cloudy'
             break
@@ -173,10 +176,11 @@ function addWeatherDay(dayData) {
     </div>
 </div>`
 
-    var weatherRow = document.getElementById('weather-row');
+    var weatherRow = document.getElementById('weather-row')
     weatherRow.innerHTML += str
 
 }
+
 function fetchHospitals(loc) {
         //var loc = fetchCoordinates(Destination);
         var url = backend_base_url + '/emergency'
