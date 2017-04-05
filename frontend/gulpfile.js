@@ -19,9 +19,9 @@ gulp.task('css', function(){
 
 	//create css bundle
 	gulp.src([
-		'./css/lib/reset.css',
+		'./node_modules/reset-css/reset.css',
 		'./node_modules/bootstrap/dist/css/bootstrap.min.css',
-		'./css/lib/weather-icons/weather-icons.min.css',
+		'./node_modules/weather-icons/css/weather-icons.min.css',
 		'./css/styles.css' ])
 
 		//bundle
