@@ -29,7 +29,8 @@ dependencies {
 
 	compile 'tk.plogitech:darksky-forecast-api:0.10'
 	compile 'tk.plogitech:darksky-forecast-api-jackson:0.10'
-        compile 'org.aeonbits.owner:owner:1.0.9'
+    	compile 'org.aeonbits.owner:owner:1.0.9'
 	compile 'com.vaadin.external.google:android-json:0.0.20131108.vaadin1'
+	compile 'com.mashape.unirest:unirest-java:1.3.27'
 }
 

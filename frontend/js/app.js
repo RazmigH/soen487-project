@@ -21,8 +21,12 @@ function fetchTripInfo() {
     console.log('Fetching trip info')
     fetchDirections(departure, destination)
     fetchWeather(departure, destination)
-    //fetchRestaurants(departure, arrival)
+    fetchHospitalRoutine(destination)
+    // /fetchRestaurants(departure, arrival)
     //fetchGasStations(departure, arrival)
+
+    //Testing Purposes
+    //fetchCoordinates(destination)
 
 }
 
@@ -173,3 +177,58 @@ function addWeatherDay(dayData) {
     weatherRow.innerHTML += str
 
 }
+function fetchHospitals(loc) {
+        //var loc = fetchCoordinates(Destination);
+        var url = backend_base_url + '/emergency'
+        console.log('Fetching Hospitals');
+        //console.log(loc);
+        $.getJSON(url, {
+            longitude: loc.lng,
+            latitude: loc.lat
+        },function (data){
+            $.each(data, function(key,value){
+                if(key=='listings'){
+                    $.each(value, function(k, v){
+                        console.log(v.name + ',' + v.address.city + ',' + v.distance + ',');
+                        $('#emergency-col').append('<li>'+ v.name + '<br> Address: ' + v.address.street + ', '
+                            + v.address.city + ', ' + v.address.pcode + v.address.prov + '<br> Distance from Destination: '
+                            + v.distance + '</li>');
+                    });
+                }
+            })
+        });
+}
+
+function fetchCoordinates(place){
+    console.log(place);
+    console.log('Fetching Coordinates');
+    var myUrl = backend_base_url + '/geocode';
+    var obj;
+    $.ajax({
+        url: myUrl,
+        dataType: 'json',
+        async: false,
+        data:{
+            address: place
+        },
+        success: function(data){
+            $.each(data.results[0], function(key, value){
+            if(key=='geometry'){
+                obj = value.location
+            }
+        })
+    }});
+    console.log('TESTING fethCoordinates FUNCTION: ' + obj);
+    return obj;
+}
+
+function fetchHospitalRoutine(destination){
+    /*
+     * fetchHospital runs before fetchCoordinate can finish, thus timeout
+     */
+    var loc = fetchCoordinates(destination);
+
+    //wrap the function as else if you call a function with parameters, it runs immediately
+    setTimeout(fetchHospitals.bind(null, loc), 5000);
+}
+
