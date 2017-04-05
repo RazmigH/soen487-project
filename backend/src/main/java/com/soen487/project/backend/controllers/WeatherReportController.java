@@ -1,5 +1,6 @@
 package com.soen487.project.backend.controllers;
 
+import com.soen487.project.backend.EnvHelper;
 import com.soen487.project.backend.ServicesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +27,9 @@ public class WeatherReportController {
 
     @RequestMapping(value = "/weather", method = GET)
     public Forecast getWeatherNear(@RequestParam Double longitude, @RequestParam Double latitude) {
+        String apiKey = EnvHelper.getSystemPropOrFallback("darksky.api.key", servicesConfig.darkskyApiKey());
         ForecastRequest request = new ForecastRequestBuilder()
-                .key(new APIKey(servicesConfig.darkskyApiKey()))
+                .key(new APIKey(apiKey))
                 .exclude(ForecastRequestBuilder.Block.minutely)
                 .exclude(ForecastRequestBuilder.Block.alerts)
                 .location(new GeoCoordinates(new Longitude(longitude), new Latitude(latitude))).build();

@@ -7,6 +7,7 @@ package com.soen487.project.backend.controllers;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
+import com.soen487.project.backend.EnvHelper;
 import com.soen487.project.backend.ServicesConfig;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,22 +27,20 @@ public class GeocodeLocationController {
     }
 
     @RequestMapping(value="/geocode", method = RequestMethod.GET)
-    public String getGeocode(@RequestParam String address){
+    public String getGeocode(@RequestParam String address) {
+        String apiKey = EnvHelper.getSystemPropOrFallback("googlegeocode.api.key", servicesConfig.googleGeocodeApiKey());
         String input = address.replace(" ", "+");
-        System.out.println(address);
-        System.out.println(input);
-        JSONObject obj = null;
         String url = "https://maps.googleapis.com/maps/api/geocode/json";
         try {
             HttpResponse<JsonNode> response = Unirest.get(url)
                     .queryString("address", input)
-                    .queryString("key", servicesConfig.googleGeocodeApiKey())
+                    .queryString("key", apiKey)
                     .asJson();
-            obj = response.getBody().getObject();
-        }catch(Exception e){
+            return response.getBody().getObject().toString();
+        } catch(Exception e) {
             //e.printStackTrace();
         }
-        return obj.toString();
+        return null;
     }
 }
 

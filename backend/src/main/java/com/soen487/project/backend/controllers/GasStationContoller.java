@@ -17,6 +17,7 @@ public class GasStationContoller {
 
     @RequestMapping(value = "/gas-stations", method = GET)
     public List<GasStation> getStationsNear(Double longitude, Double latitude, Integer kmRange) {
+        // TODO
         List<GasStation> gList = new ArrayList<>();
         gList.add(new GasStation("Ultramar", "1234 St-Laurent Blvd., Montreal", -73.56745, 45.10101));
         gList.add(new GasStation("Petro Canada", "5678 St-Denis Blvd., Montreal", -73.54546, 45.10231));

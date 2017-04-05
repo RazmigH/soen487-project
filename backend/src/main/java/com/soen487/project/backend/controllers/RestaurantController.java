@@ -1,5 +1,6 @@
 package com.soen487.project.backend.controllers;
 
+import com.soen487.project.backend.EnvHelper;
 import com.soen487.project.backend.ServicesConfig;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,13 +40,13 @@ public class RestaurantController {
     @RequestMapping(value = "/restaurant", method = GET)
     @ResponseBody
     public String getBestRestaurant(@RequestParam Double longitude, @RequestParam Double latitude, @RequestParam int topN) {
-
+        String apiKey = EnvHelper.getSystemPropOrFallback("google.maps.api.key", servicesConfig.googleMapsApiKey());
         Map<String, String> vars = new HashMap<>();
         vars.put("location", Double.toString(latitude)+","+Double.toString(longitude)); //lat + long
         vars.put("radius", "5000");
         vars.put("types","restaurant");
         vars.put("sensor","true");
-        vars.put("key",servicesConfig.googleMapsApiKey()); //get google developer api key
+        vars.put("key", apiKey); //get google developer api key
         //vars.put("key","xx-xx");
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject("https://maps.googleapis.com/maps/api/place/search/json?location={location}&radius={radius}&types={types}&sensor={sensor}&key={key}", String.class, vars);
@@ -72,7 +73,6 @@ public class RestaurantController {
             e.printStackTrace();
         }
 
-        //System.out.println(returnedList.toString());
         return returnedList.toString();
     }
 }
