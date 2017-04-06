@@ -99,7 +99,7 @@ function makeRestaurantRequest(place) {
 function displayRestaurant(data, city){ //eric
     $("#restaurants-col").html(''); //clear its contents
     var input = $("#restaurants-col");
-    input.append("<div class='container'><h2>Restaurant Reco.</h2> <p>Best rated restaurants in "+city+"</p>")
+    input.append("<div class='container'><h3>Restaurant Reco.</h3> <p>Best rated restaurants in "+city+"</p>")
     input.append("<table class='table table-hover'>")
 
     $.each(data, function(index) {
@@ -133,12 +133,12 @@ function addWeatherDay(dayData) {
     console.log(dayData)
 
     var dt = new Date(dayData.time * 1000)
+    var weekday = weekdays[dt.getDay()]
+    var date = dt.getDate()
+    var month = monthNames[dt.getMonth()]
 
-    var options = { weekday: 'long', month: 'long', day: 'numeric' }
-    var dateString = dt.toLocaleDateString('en-US', options)
-
-    var high = dayData.temperatureMax
-    var low = dayData.temperatureMin
+    var high = Math.round(dayData.temperatureMax)
+    var low = Math.round(dayData.temperatureMin)
     var icon = dayData.icon
     var weatherIcon
     switch (icon) {
@@ -174,43 +174,19 @@ function addWeatherDay(dayData) {
             break
         default:
             break
-
     }
 
     // Messy I know
-//     var str = `
-// <div class="col-xs-4 col-sm-3 col-md-4 col-lg-3 weather-col">
-//     <div class="panel panel-default">
-//         <div class="panel-heading">
-//             <h3 class="panel-title">${ dateString }</h3>
-//         </div>
-//         <div class="panel-body">
-//             <i class="wi wi-fw wi-${ weatherIcon }"></i>
-//             <br>
-//             High: ${ high }
-//             <br>
-//             Low: ${ low }
-//         </div>
-//     </div>
-// </div>`
-
     var str = `
 <div class="col-4 col-md-6 col-lg-4 col-xl-3 weather-col">
     <div class="card">
         <div class="card-header">
-            <h5 class="card-title">${ dateString }</h5>
+            <h5 class="card-title">${ weekday }</h5>
+            <h6 class="card-subtitle">${ month } ${ date }</h6>
         </div>
         <div class="card-block">
-            <p class="card-text">High: ${ high }</p>
-            <p class="card-text">Low: ${ low }</p>
-        <!--</div>-->
-        <!--<div class="card-block">-->
-            <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
             <!--<i class="card-img-top wi wi-fw wi-${ weatherIcon }"></i>-->
-            <!--<ul class="list-group list-group-flush">-->
-                <!--<li class="list-group-item">High: ${ high }</li>-->
-                <!--<li class="list-group-item">Low: ${ low }</li>-->
-            <!--</ul>-->
+            <p class="card-text">${ high } / ${ low }</p>
         </div>
     </div>
 </div>`

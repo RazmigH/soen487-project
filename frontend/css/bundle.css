@@ -194,8 +194,9 @@ hr {
   color: black; }
 
 .card-header {
-  background-color: #375a7f;
+  background-color: #222;
   text-align: center; }
 
 .card {
-  border: 2px solid #375a7f; }
+  border: 2px solid #375a7f;
+  background-color: #375a7f; }
