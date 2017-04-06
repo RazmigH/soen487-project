@@ -20,9 +20,10 @@ $('#destination-text').keypress(function(event) {
 })
 
 function fetchTripInfo() {
+    var departure = document.getElementById('departure-text').value
+    var destination = document.getElementById('destination-text').value
+
     if (departure && destination) {
-        var departure = document.getElementById('departure-text').value
-        var destination = document.getElementById('destination-text').value
     
         console.log('Fetching trip info')
         fetchDirections(departure, destination)
@@ -35,6 +36,7 @@ function fetchTripInfo() {
         //fetchCoordinates(destination)
     } else {
         // TODO better error message
+        console.log(departure +" " + destination)
         alert('must specify both departure and arrival!')
     }
 }
