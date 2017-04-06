@@ -221,6 +221,7 @@ function addWeatherDay(dayData) {
 
 function fetchHospitals(loc) {
         //var loc = fetchCoordinates(Destination);
+
         var url = backend_base_url + '/emergency'
         console.log('Fetching Hospitals');
         //console.log(loc);
@@ -232,9 +233,9 @@ function fetchHospitals(loc) {
                 if(key=='listings'){
                     $.each(value, function(k, v){
                         console.log(v.name + ',' + v.address.city + ',' + v.distance + ',');
-                        $('#emergency-col').append('<li>'+ v.name + '<br> Address: ' + v.address.street + ', '
-                            + v.address.city + ', ' + v.address.pcode + v.address.prov + '<br> Distance from Destination: '
-                            + v.distance + '</li>');
+                         $('#emergency-list').append('<li><u>'+ v.name + '</u><br>Address: ' + v.address.street + ', '
+                             + v.address.city + ', ' + v.address.pcode + v.address.prov + '<br> Distance from Destination: '
+                             + v.distance + '</li>');
                     });
                 }
             })
@@ -271,6 +272,6 @@ function fetchHospitalRoutine(destination){
     var loc = fetchCoordinates(destination);
 
     //wrap the function as else if you call a function with parameters, it runs immediately
-    setTimeout(fetchHospitals.bind(null, loc), 5000);
+    setTimeout(fetchHospitals.bind(null, loc), 1000);
 }
 
