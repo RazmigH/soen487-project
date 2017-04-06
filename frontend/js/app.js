@@ -3,7 +3,7 @@
 
 var GMAPS_API_KEY = 'AIzaSyCNrZAoJ8_xVKR7y7jHYPkX_P098AsZf3c'
 
-var backend_base_url = 'http://localhost:8080'
+var backend_base_url = 'http://soen487-project.herokuapp.com'
 
 var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
     "Friday", "Saturday"
@@ -75,6 +75,7 @@ function makeWeatherRequest(place) {
         longitude: loc.lng,
         latitude: loc.lat
     }).done(function(data) {
+        $("#weather-row").html('');
         data.daily.data.forEach(function(d) {
             addWeatherDay(d)
         })
@@ -96,7 +97,7 @@ function makeRestaurantRequest(place) {
 }
 
 function displayRestaurant(data, city){ //eric
-    $("#restaurants-col").val("") //clear its contents
+    $("#restaurants-col").html(''); //clear its contents
     var input = $("#restaurants-col");
     input.append("<div class='container'><h2>Restaurant Reco.</h2> <p>Best rated restaurants in "+city+"</p>")
     input.append("<table class='table table-hover'>")
@@ -221,7 +222,7 @@ function addWeatherDay(dayData) {
 
 function fetchHospitals(loc) {
         //var loc = fetchCoordinates(Destination);
-
+        $('#emergency-list').empty();
         var url = backend_base_url + '/emergency'
         console.log('Fetching Hospitals');
         //console.log(loc);
