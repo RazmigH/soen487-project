@@ -12,6 +12,7 @@ popd
 
 # Build frontend & deploy to surge
 pushd ${TOP_DIR}/frontend
+npm install
 npm run gulp deploy
 popd
 
