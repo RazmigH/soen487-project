@@ -3,7 +3,7 @@
 
 var GMAPS_API_KEY = 'AIzaSyCNrZAoJ8_xVKR7y7jHYPkX_P098AsZf3c'
 
-var backend_base_url = 'http://soen487-project.herokuapp.com'
+var backend_base_url = 'https://soen487-project.herokuapp.com'
 
 var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
     "Friday", "Saturday"

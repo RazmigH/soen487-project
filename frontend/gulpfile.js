@@ -68,7 +68,7 @@ gulp.task('build', ['clean', 'css', 'js'], function () {
 
 gulp.task('rewrite-backend-url', ['build'], function() {
     return gulp.src(['dist/js/app.js'])
-        .pipe(replace(/http:\/\/localhost:\d+/g, 'http://soen487-project.herokuapp.com'))
+        .pipe(replace(/http:\/\/localhost:\d+/g, 'https://soen487-project.herokuapp.com'))
         .pipe(gulp.dest('dist/js/'))
 })
 
