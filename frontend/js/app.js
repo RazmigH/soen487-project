@@ -13,6 +13,7 @@ var monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ]
 
+// Let 'enter' key pressed in destination input box simulate 'GO!' button press
 $('#destination-text').keypress(function(event) {
     if (event.keyCode == 13) {  // enter key pressed
         fetchTripInfo();
@@ -99,23 +100,32 @@ function makeRestaurantRequest(place) {
 function displayRestaurant(data, city){ //eric
     $("#restaurants-col").html(''); //clear its contents
     var input = $("#restaurants-col");
-    input.append("<div class='container'><h3>Restaurant Reco.</h3> <p>Best rated restaurants in "+city+"</p>")
-    input.append("<table class='table table-hover'>")
+    input.append("<h3>Restaurants</h3> <p>Best rated restaurants near " + city + "</p>")
+    input.append('<div class="list-group">');
 
     $.each(data, function(index) {
-        //console.log(data[index])
-        input.append("<thead><tr><th>"+data[index].name+"</th>")
-        input.append("<th>Rating "+data[index].rating+"</th>")
-        input.append("</tr></thead>")
-        var openClosed
-        if(data[index].opening_hours.open_now)
-            openClosed = "Open"
+        console.log(data[index])
+        var restaurantName = data[index].name
+        var restaurantRating = data[index].rating
+        var restaurantVicinity = data[index].vicinity
+        var restaurantPriceLevel = data[index].price_level
+        var restaurantOpenNow = ''
+        if (typeof data[index].opening_hours != 'undefined' && data[index].opening_hours.open_now)
+            restaurantOpenNow = 'Open Now'
         else
-            openClosed = "Closed"
-        input.append("<tbody><tr><td>Address "+data[index].vicinity+"</td><td></td></tr><tr><td>"+openClosed+"</td><td> </td></tr></tbody>")
+            restaurantOpenNow = 'Closed Now'
 
+        input.append(`<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1 restaurant-name">${ restaurantName }</h5>
+        <small>${ restaurantOpenNow }</small>
+    </div>
+    <p class="mb-1">${ restaurantRating } star rating</p>
+    <p class="mb-1">Price level: ${ restaurantPriceLevel }</p>
+    <small>${ restaurantVicinity }</small>
+</a>`)
     })
-    input.append("</table></div>")
+    input.append('</div>')
 }
 
 function setWeatherDest(place) {
@@ -197,33 +207,33 @@ function addWeatherDay(dayData) {
 }
 
 function fetchHospitals(loc) {
-        //var loc = fetchCoordinates(Destination);
-        $('#emergency-list').empty();
+        //var loc = fetchCoordinates(Destination)
+        $('#emergency-list').empty()
         var url = backend_base_url + '/emergency'
-        console.log('Fetching Hospitals');
+        console.log('Fetching Hospitals')
         //console.log(loc);
         $.getJSON(url, {
             longitude: loc.lng,
             latitude: loc.lat
         },function (data){
-            $.each(data, function(key,value){
-                if(key=='listings'){
-                    $.each(value, function(k, v){
+            $.each(data, function(key, value) {
+                if(key=='listings') {
+                    $.each(value, function(k, v) {
                         console.log(v.name + ',' + v.address.city + ',' + v.distance + ',');
                          $('#emergency-list').append('<li><u>'+ v.name + '</u><br>Address: ' + v.address.street + ', '
                              + v.address.city + ', ' + v.address.pcode + v.address.prov + '<br> Distance from Destination: '
-                             + v.distance + '</li>');
+                             + v.distance + '</li>')
                     });
                 }
             })
         });
 }
 
-function fetchCoordinates(place){
-    console.log(place);
-    console.log('Fetching Coordinates');
-    var myUrl = backend_base_url + '/geocode';
-    var obj;
+function fetchCoordinates(place) {
+    console.log(place)
+    console.log('Fetching Coordinates')
+    var myUrl = backend_base_url + '/geocode'
+    var obj
     $.ajax({
         url: myUrl,
         dataType: 'json',
@@ -232,14 +242,14 @@ function fetchCoordinates(place){
             address: place
         },
         success: function(data){
-            $.each(data.results[0], function(key, value){
-            if(key=='geometry'){
+            $.each(data.results[0], function(key, value) {
+            if (key=='geometry') {
                 obj = value.location
             }
         })
-    }});
-    console.log('TESTING fethCoordinates FUNCTION: ' + obj);
-    return obj;
+    }})
+    console.log('TESTING fethCoordinates FUNCTION: ' + obj)
+    return obj
 }
 
 function fetchHospitalRoutine(destination){
