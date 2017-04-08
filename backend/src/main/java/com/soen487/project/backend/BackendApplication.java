@@ -1,6 +1,9 @@
 package com.soen487.project.backend;
 
+import com.google.maps.GeoApiContext;
+import com.google.maps.PlacesApi;
 import org.aeonbits.owner.ConfigFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +30,14 @@ public class BackendApplication {
 	}
 
 	@Bean
-    ServicesConfig init() {
+    ServicesConfig servicesConfig() {
         return ConfigFactory.create(ServicesConfig.class);
+    }
+
+    @Autowired
+    @Bean
+    GeoApiContext geoApiContext(ServicesConfig config) {
+        String apiKey = EnvHelper.getSystemPropOrFallback("googlemaps.api.key", config.googleMapsApiKey());
+        return new GeoApiContext().setApiKey(apiKey);
     }
 }
