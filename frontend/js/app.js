@@ -46,6 +46,7 @@ function fetchDirections(departure, destination) {
     console.log('Fetching directions')
     if (departure && destination) {
         calcRoute(departure, destination)
+        document.getElementById('directions-col').hidden = false
     }
 }
 
@@ -97,11 +98,13 @@ function makeRestaurantRequest(place) {
     })
 }
 
-function displayRestaurant(data, city){ //eric
-    $("#restaurants-col").html(''); //clear its contents
-    var input = $("#restaurants-col");
-    input.append("<h3>Restaurants</h3> <p>Best rated restaurants near " + city + "</p>")
-    input.append('<div class="list-group">');
+function displayRestaurant(data, city) {
+    var input = $("#restaurants-col")
+    //clear its contents
+    input.empty()
+    input.append("<h3>Restaurants</h3>")
+    input.append("<p>Best rated restaurants near " + city + "</p>")
+    input.append('<div class="list-group">')
 
     $.each(data, function(index) {
         console.log(data[index])
@@ -110,10 +113,15 @@ function displayRestaurant(data, city){ //eric
         var restaurantVicinity = data[index].vicinity
         var restaurantPriceLevel = data[index].price_level
         var restaurantOpenNow = ''
-        if (typeof data[index].opening_hours != 'undefined' && data[index].opening_hours.open_now)
+        if (typeof data[index].opening_hours != 'undefined' && data[index].opening_hours.open_now) {
             restaurantOpenNow = 'Open Now'
-        else
+        } else {
             restaurantOpenNow = 'Closed Now'
+        }
+        var restaurantHtml = '';
+        if (restaurantPriceLevel) {
+            restaurantHtml = `<p class="mb-1">Price level: ${ restaurantPriceLevel }</p>`
+        }
 
         input.append(`<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
@@ -121,7 +129,7 @@ function displayRestaurant(data, city){ //eric
         <small>${ restaurantOpenNow }</small>
     </div>
     <p class="mb-1">${ restaurantRating } star rating</p>
-    <p class="mb-1">Price level: ${ restaurantPriceLevel }</p>
+    ${ restaurantHtml }
     <small>${ restaurantVicinity }</small>
 </a>`)
     })
@@ -207,26 +215,40 @@ function addWeatherDay(dayData) {
 }
 
 function fetchHospitals(loc) {
-        //var loc = fetchCoordinates(Destination)
-        $('#emergency-list').empty()
-        var url = backend_base_url + '/emergency'
-        console.log('Fetching Hospitals')
-        //console.log(loc);
-        $.getJSON(url, {
-            longitude: loc.lng,
-            latitude: loc.lat
-        },function (data){
-            $.each(data, function(key, value) {
-                if(key=='listings') {
-                    $.each(value, function(k, v) {
-                        console.log(v.name + ',' + v.address.city + ',' + v.distance + ',');
-                         $('#emergency-list').append('<li><u>'+ v.name + '</u><br>Address: ' + v.address.street + ', '
-                             + v.address.city + ', ' + v.address.pcode + v.address.prov + '<br> Distance from Destination: '
-                             + v.distance + '</li>')
-                    });
-                }
-            })
-        });
+    //var loc = fetchCoordinates(Destination)
+    var emList = $('#emergency-list')
+    emList.empty()
+    emList.append('<h3>Emergency Services</h3>')
+    emList.append("<p>For Your Emergency Needs</p>")
+    var url = backend_base_url + '/emergency'
+    console.log('Fetching Hospitals')
+    //console.log(loc);
+    $.getJSON(url, {
+        longitude: loc.lng,
+        latitude: loc.lat
+    },function (data) {
+        emList.append('<div class="list-group">');
+        $.each(data, function(key, value) {
+            if (key == 'listings') {
+                $.each(value, function(k, v) {
+                    var emergencyName = v.name
+                    var emergencyStreet = v.address.street
+                    var emergencyCity = v.address.city
+                    var emergencyPostalCode = v.address.pcode
+                    var emergencyProvince = v.address.prov
+                    var emergencyDistance = v.distance
+                    emList.append(`<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1 emergency-name">${ emergencyName }</h5>
+        <small>${ emergencyDistance } from destination</small>
+    </div>
+    <small>${ emergencyStreet }, ${ emergencyCity }, ${ emergencyPostalCode } ${ emergencyProvince }</small>
+</a>`)
+                })
+            }
+        })
+        emList.append('</div>');
+    })
 }
 
 function fetchCoordinates(place) {
