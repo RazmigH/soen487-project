@@ -24,9 +24,9 @@ To build the backend, `cd` to the `backend` directory and run `./gradlew build`.
 ### Frontend
 The frontend is a collection of static HTML, CSS and JavaScript. It can be used locally or hosted with a webserver such as [Apache](https://httpd.apache.org/) or [nginx](https://www.nginx.com/).
 
-To connect to the backend, simply specify the base url in `frontend/js/app.js` as `backend_base_url`. The default is `http://localhost:8080`.
+To connect to the backend, simply specify the base url in `frontend/js/app.js` as `backend_base_url`.
 
-If you would like to make use of SASS and the CSS bundling, you will need to run the "gulp" script through `npm`.
+If you would like to make use of SASS and the CSS bundling, you will need to run the `gulp` script through `npm`.
 To do this, you need npm (nodejs package manager) which is included with [NodeJS](https://nodejs.org/en/download/).
 
  - Once you have npm, open a command prompt window and navigate to the frontend directory. 
@@ -40,5 +40,6 @@ Note: This is not required, you can still make regular css files and include the
  - [Spring Boot](http://projects.spring.io/spring-boot/)
  - [Google Maps API](https://developers.google.com/maps/)
  - [DarkSky](https://darksky.net/dev/) & [DarkSky Forecast API](https://github.com/200Puls/darksky-forecast-api)
+ - [Yellow Pages](http://www.yellowapi.com)
  - [SASS](http://sass-lang.com/)
  - [Gulp](http://gulpjs.com/)

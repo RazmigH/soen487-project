@@ -4,6 +4,7 @@
 var GMAPS_API_KEY = 'AIzaSyCNrZAoJ8_xVKR7y7jHYPkX_P098AsZf3c'
 
 var backend_base_url = 'https://soen487-project.herokuapp.com'
+// var backend_base_url = 'http://localhost:8080'
 
 var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
     "Friday", "Saturday"
@@ -28,17 +29,15 @@ function fetchTripInfo() {
     
         console.log('Fetching trip info')
         fetchDirections(departure, destination)
-        fetchWeather(departure, destination)
-        fetchHospitalRoutine(destination)
-        fetchRestaurants(departure, destination)
-        //fetchGasStations(departure, arrival)
+        fetchWeather()
+        fetchHospitalRoutine()
+        fetchRestaurants()
+        fetchGasStations()
 
-        //Testing Purposes
-        //fetchCoordinates(destination)
     } else {
         // TODO better error message
         console.log(departure +" " + destination)
-        alert('must specify both departure and arrival!')
+        alert('You must specify both departure and arrival!')
     }
 }
 
@@ -50,17 +49,18 @@ function fetchDirections(departure, destination) {
     }
 }
 
-function fetchRestaurants(departure, destination) {
+function fetchRestaurants() {
     console.log('Fetching restaurants')
     makeRestaurantRequest(destPlace)
 }
 
-function fetchGasStations(departure, destination) {
-    // TODO
+function fetchGasStations() {
     console.log('Fetching gas stations')
+    makeGasStationsRequest(destPlace)
+    document.getElementById('gas-stations-col').hidden = false
 }
 
-function fetchWeather(departure, destination) {
+function fetchWeather() {
     // TODO
     console.log('Fetching weather')
     makeWeatherRequest(destPlace)
@@ -77,21 +77,54 @@ function makeWeatherRequest(place) {
         longitude: loc.lng,
         latitude: loc.lat
     }).done(function(data) {
-        $("#weather-row").html('');
+        $("#weather-row").empty();
         data.daily.data.forEach(function(d) {
             addWeatherDay(d)
         })
     })
 }
 
-function makeRestaurantRequest(place) {
+function makeGasStationsRequest(place) {
     var loc = place.geometry.location
-    var url = backend_base_url + '/restaurant'
-    //console.log(place.name)
+    var url = backend_base_url + '/gas-stations'
+
+    var gasStationsCol = $("#gas-stations-col")
 
     $.getJSON(url, {
         longitude: loc.lng,
-        latitude: loc.lat,
+        latitude: loc.lat
+    }).done(function(data) {
+        gasStationsCol.empty();
+        gasStationsCol.append('<h3>Gas Stations</h3>')
+        gasStationsCol.append("<p>So you can keep on going</p>")
+        gasStationsCol.append('<div class="list-group">')
+        data = data.slice(0, 5)
+        data.forEach(function(d) {
+            var gasStationName = d.name
+            var gasStationAdddress = d.vicinity
+            var gasItem = `<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1 gas-station-name">${ gasStationName }</h5>
+    </div>
+    <p class="mb-1">${ gasStationAdddress }</p>
+</a>`
+            gasStationsCol.append(gasItem)
+        })
+        gasStationsCol.append('</div>')
+    })
+}
+
+function makeRestaurantRequest(place) {
+    var loc = place.geometry.location
+    var url = backend_base_url + '/restaurant'
+    var lng = loc.lng()
+    var lat = loc.lat()
+
+    console.log(url + '?longitude=' + lat + '&latitude=' + lng + '&topN=3')
+
+    $.getJSON(url, {
+        longitude: lng,
+        latitude: lat,
         topN: 3
     }).done(function(data) {
         displayRestaurant(data, place.name)
@@ -105,6 +138,8 @@ function displayRestaurant(data, city) {
     input.append("<h3>Restaurants</h3>")
     input.append("<p>Best rated restaurants near " + city + "</p>")
     input.append('<div class="list-group">')
+
+    console.log(data)
 
     $.each(data, function(index) {
         console.log(data[index])
@@ -128,9 +163,12 @@ function displayRestaurant(data, city) {
         <h5 class="mb-1 restaurant-name">${ restaurantName }</h5>
         <small>${ restaurantOpenNow }</small>
     </div>
-    <p class="mb-1">${ restaurantRating } star rating</p>
+    <div class="d-flex w-100 justify-content-between">
+        <p class="mb-1">${ restaurantVicinity }</p>
+        <small>${ restaurantRating } star rating</small>
+    </div>
     ${ restaurantHtml }
-    <small>${ restaurantVicinity }</small>
+    
 </a>`)
     })
     input.append('</div>')
@@ -148,8 +186,6 @@ function setWeatherDest(place) {
 }
 
 function addWeatherDay(dayData) {
-    console.log(dayData)
-
     var dt = new Date(dayData.time * 1000)
     var weekday = weekdays[dt.getDay()]
     var date = dt.getDate()
@@ -274,13 +310,15 @@ function fetchCoordinates(place) {
     return obj
 }
 
-function fetchHospitalRoutine(destination){
+function fetchHospitalRoutine() {
     /*
      * fetchHospital runs before fetchCoordinate can finish, thus timeout
      */
-    var loc = fetchCoordinates(destination);
+    // var loc = fetchCoordinates(destination);
+    var place = destPlace
+    var loc = place.geometry.location
 
     //wrap the function as else if you call a function with parameters, it runs immediately
-    setTimeout(fetchHospitals.bind(null, loc), 1000);
+    fetchHospitals(loc)
 }
 

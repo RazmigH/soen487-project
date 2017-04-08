@@ -90,16 +90,16 @@ hr {
     color: black; }
 
 #directions-col {
-  margin-top: 30px; }
+  margin-top: 30px;
+  height: 500px;
+  overflow: scroll; }
   #directions-col #directions {
     margin-top: -10px; }
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   #destination-col {
     margin-top: 0px; }
   #directions-col {
-    height: 500px;
-    overflow: auto;
     margin-top: 0px; }
   #restaurants-col {
     overflow: auto; } }
@@ -125,5 +125,6 @@ hr {
   background-color: #375a7f;
   margin-bottom: 10px; }
 
-#restaurants-col, #gas-stations-col, #emergency-col {
-  margin-top: 30px; }
+#weather-col, #restaurants-col, #gas-stations-col, #emergency-col {
+  margin-top: 30px;
+  overflow: scroll; }
