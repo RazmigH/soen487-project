@@ -13,9 +13,7 @@ public class EnvHelper {
      */
     public static String getSystemPropOrFallback(String sysPropName, String fallback) {
         String attempt = System.getProperty(sysPropName);
-        System.out.println("System property " + sysPropName + ": " + attempt);
         if (attempt == null || attempt.isEmpty()) {
-            System.out.println("Using fallback: " + fallback);
             return fallback;
         } else {
             return attempt;

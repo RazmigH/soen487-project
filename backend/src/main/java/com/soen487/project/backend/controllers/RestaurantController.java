@@ -40,7 +40,7 @@ public class RestaurantController {
     @RequestMapping(value = "/restaurant", method = GET)
     @ResponseBody
     public String getBestRestaurant(@RequestParam Double longitude, @RequestParam Double latitude, @RequestParam int topN) {
-        String apiKey = EnvHelper.getSystemPropOrFallback("google.maps.api.key", servicesConfig.googleMapsApiKey());
+        String apiKey = EnvHelper.getSystemPropOrFallback("googlemaps.api.key", servicesConfig.googleMapsApiKey());
         Map<String, String> vars = new HashMap<>();
         vars.put("location", Double.toString(latitude)+","+Double.toString(longitude)); //lat + long
         vars.put("radius", "5000");

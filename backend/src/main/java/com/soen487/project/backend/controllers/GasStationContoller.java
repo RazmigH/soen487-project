@@ -35,7 +35,7 @@ public class GasStationContoller {
 
     @RequestMapping(value = "/gas-stations", method = GET)
     public PlacesSearchResult[] getStationsNear(@RequestParam Double longitude, @RequestParam Double latitude,
-                                                @RequestParam(required = false, defaultValue = "2000") Integer mRange) {
+                                                @RequestParam(required = false, defaultValue = "5000") Integer mRange) {
         NearbySearchRequest req = PlacesApi.nearbySearchQuery(geoApiContext, new LatLng(latitude, longitude));
         req = req.radius(mRange);
         req = req.type(PlaceType.GAS_STATION);
